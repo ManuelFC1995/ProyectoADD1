@@ -5,22 +5,18 @@
  */
 package modelo;
 
-import modelo.List;
+import modelo.PlayList;
 import java.util.ArrayList;
 
-/**
- *
- * @author migue
- */
+
 public class Usuario {
 
     private int id;
     private String nombre;
     private String correo;
     private String foto;
-    private Object unknow;
-    private ArrayList<List> MisListas;
-    private ArrayList<List> ListaSuscripcion;
+    private ArrayList<PlayList> MisListas;
+    private ArrayList<PlayList> ListaSuscripcion;
     
     
     public Usuario(int id, String nombre, String correo,String foto, Object unknow ) {
@@ -28,7 +24,6 @@ public class Usuario {
         this.nombre = nombre;
         this.correo = correo;
         this.foto = foto;
-        this.unknow=unknow;
         this.MisListas=null;
         this.ListaSuscripcion=null;
     }
@@ -65,27 +60,20 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public Object getUnknow() {
-        return unknow;
-    }
 
-    public void setUnknow(Object unknow) {
-        this.unknow = unknow;
-    }
-
-    public ArrayList<List> getMisListas() {
+    public ArrayList<PlayList> getMisListas() {
         return MisListas;
     }
 
-    public void setMisListas(ArrayList<List> MisListas) {
+    public void setMisListas(ArrayList<PlayList> MisListas) {
         this.MisListas = MisListas;
     }
 
-    public ArrayList<List> getListaSuscripcion() {
+    public ArrayList<PlayList> getListaSuscripcion() {
         return ListaSuscripcion;
     }
 
-    public void setListaSuscripcion(ArrayList<List> ListaSuscripcion) {
+    public void setListaSuscripcion(ArrayList<PlayList> ListaSuscripcion) {
         this.ListaSuscripcion = ListaSuscripcion;
     }
     

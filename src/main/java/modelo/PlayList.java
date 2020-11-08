@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author migue
  */
-public class List {
+public class PlayList {
     private int id;
     private String nombre;
     private Object descripcion;
@@ -21,7 +21,7 @@ public class List {
     private ArrayList<Cancion> Canciones;
     
     
-    public List(int id, String nombre, Object descripcion,Usuario Creador ) {
+    public PlayList(int id, String nombre, Object descripcion,Usuario Creador ) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

@@ -17,6 +17,7 @@ public class Artista {
     String nacionalidad;
     String foto;
     ArrayList<Disco> Discos;
+   
 
     public Artista( String nombre, String nacionalidad, String foto) {
        
@@ -25,6 +26,10 @@ public class Artista {
         this.foto = foto;
         this.Discos=null;
     }
+
+    public Artista() {
+    }
+    
 
     public int getId() {
         return id;
@@ -65,6 +70,7 @@ public class Artista {
     public void setDiscos(ArrayList<Disco> Discos) {
         this.Discos = Discos;
     }
+    
 
     @Override
     public int hashCode() {
