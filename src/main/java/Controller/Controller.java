@@ -34,17 +34,17 @@ public class Controller implements IController {
     }
 
     @Override
-    public void ActualizarAristaInfo(Artista artista) {
+    public void ActualizarAristaInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void ActualizarArtistaAñadeDisco(Artista artista) {
+    public void ActualizarArtistaAñadeDisco() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void EliminaArtista(Artista artista) {
+    public void EliminaArtista() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -59,17 +59,17 @@ public class Controller implements IController {
     }
 
     @Override
-    public void ActualizarDiscoInfo(Disco disco) {
+    public void ActualizarDiscoInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void AñadirCancionAdisco(Disco disco) {
+    public void AñadirCancionAdisco() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void EliminarDisco(Disco disco) {
+    public void EliminarDisco() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -84,12 +84,12 @@ public class Controller implements IController {
     }
 
     @Override
-    public void ActualizarCancion(Cancion Cancion) {
+    public void ActualizarCancion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void EliminarCancion(Cancion cancion) {
+    public void EliminarCancion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

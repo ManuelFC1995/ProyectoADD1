@@ -19,7 +19,9 @@ public class ManagerDAO {
     private Connection conexion;
     
     private ArtistaDAO artista=null;
-   
+    private DiscoDAO disco=null;
+    private CancionDAO cancion=null;
+    
     
     public ManagerDAO(String host,String username,String password,String database)throws SQLException{
         conexion=DriverManager.getConnection("jdbc:mysql://"+host+"/"+database, username, password);
@@ -30,6 +32,20 @@ public class ManagerDAO {
             artista=new ArtistaDAO(conexion) {};
         }
         return artista;
+    }
+    
+    public DiscoDAO getDiscoDAO() {
+        if(disco==null){
+            disco=new DiscoDAO(conexion) {};
+        }
+        return disco;
+    }
+    
+    public CancionDAO getCancionDAO() {
+        if(cancion==null){
+            cancion=new CancionDAO(conexion) {};
+        }
+        return cancion;
     }
 
     

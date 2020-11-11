@@ -18,22 +18,22 @@ import modelo.Usuario;
 public interface IController {
     public void ListarArtistas();//CArgar el DaoArtistas y imprimirlos por pantalla
     public void CrearArtista();//crear un menu que crea un artista y hacer un create
-    public void ActualizarAristaInfo(Artista artista);//recibe un artista crea un menu para recibir por pantalla los nuevos datos y hace un update
-    public void ActualizarArtistaAñadeDisco(Artista artista);//usar el metodo CrearDiscos() y añadirlo a los discos del Artista
-    public void EliminaArtista(Artista artista);// recibe un artista y hace el delete
+    public void ActualizarAristaInfo();//recibe un artista crea un menu para recibir por pantalla los nuevos datos y hace un update
+    public void ActualizarArtistaAñadeDisco();//usar el metodo CrearDiscos() y añadirlo a los discos del Artista
+    public void EliminaArtista();// recibe un artista y hace el delete
     
     
       public void ListarDiscos();//CArgar el DaoDiscos y imprimirlos por pantalla(agrupados por artista)
     public void CrearDiscos();//crear un menu que crea un Disco y hacer un create(debe dar la opcion de asociarlo a un artista ya existente o uno nuevo)
-    public void ActualizarDiscoInfo(Disco disco);//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void AñadirCancionAdisco(Disco disco);//hace uso del metodo crearCanciones() y la añade
-    public void EliminarDisco(Disco disco);// recibe un disco y hace el delete
+    public void ActualizarDiscoInfo();//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
+    public void AñadirCancionAdisco();//hace uso del metodo crearCanciones() y la añade
+    public void EliminarDisco();// recibe un disco y hace el delete
     
           public void ListarCanciones();//CArgar el DaoCanciones y imprimirlos por pantalla(agrupados por Disco)
     public void CrearCanciones();//crear un menu que crea un Disco y hacer un create(debe dar la opcion de asociarlo a un disco ya existente o uno nuevo)
     // no se añade por defecto a ninguna playList
-    public void ActualizarCancion(Cancion Cancion);//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void EliminarCancion(Cancion cancion);// recibe un disco y hace el delete
+    public void ActualizarCancion();//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
+    public void EliminarCancion();// recibe un disco y hace el delete
     
         
       public void ListarPlayList();//CArgar el DaoPlayList y imprimirlos por pantalla
