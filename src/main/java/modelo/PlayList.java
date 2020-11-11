@@ -15,21 +15,27 @@ import java.util.ArrayList;
 public class PlayList {
     private int id;
     private String nombre;
-    private Object descripcion;
+    private String descripcion;
     private Usuario Creador;
     private ArrayList<Usuario> subs;
     private ArrayList<Cancion> Canciones;
     
     
-    public PlayList(int id, String nombre, Object descripcion,Usuario Creador ) {
+    public PlayList(int id, String nombre, String descripcion,Usuario Creador ) {
         this.id = id;
         this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.descripcion =  descripcion;
         this.Creador = Creador;
         this.subs=null;
         this.Canciones=null;
        
     }
+
+    public PlayList() {
+    }
+
+   
+    
 
     public int getId() {
         return id;
@@ -47,11 +53,11 @@ public class PlayList {
         this.nombre = nombre;
     }
 
-    public Object getDescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(Object descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -77,6 +83,11 @@ public class PlayList {
 
     public void setCanciones(ArrayList<Cancion> Canciones) {
         this.Canciones = Canciones;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayList{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", Creador=" + Creador + ", subs=" + subs + ", Canciones=" + Canciones + '}';
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package App;
 
+import GUI.Menu;
 import data.Conection;
 
 /**
@@ -14,6 +15,6 @@ import data.Conection;
 public class App {
     public static void main(String[] args) {
      
-       Conection.GetConnection();
+        Menu.Inicial();
     }
 }

@@ -5,10 +5,14 @@
  */
 package GUI;
 
+import Controller.Controller;
+import java.util.Scanner;
 import utilities.Utilidades;
 
 
-public class Menu {
+public  class Menu {
+      static Scanner teclado=new Scanner(System.in);
+    public static Controller c= new Controller();
     public static void Inicial() {
         int opciones = 0;
         do {
@@ -165,13 +169,17 @@ public class Menu {
             opciones = Utilidades.getInt();
             switch(opciones){
                 case 1:
+                    c.ListarPlayList();
                     break;
                     
                 case 2:
+                    c.CrearPlayList();
                     break;
                 case 3:
+                    c.ActualizarPlayLIst();
                     break;
                 case 4:
+                    c.EliminarPlayList();
                     break;
                 case 5:
                     break;
@@ -197,13 +205,19 @@ public class Menu {
             opciones = Utilidades.getInt();
             switch(opciones){
                 case 1:
+                      c.ListarUsers();
                     break;
-                    
-                case 2:
+                 
+                case 2:c.CrearUsuario();
                     break;
+                  
                 case 3:
+                    
+                    c.ActualizarUsuarioInfo();
                     break;
                 case 4:
+                   
+                    c.EliminarUsuario();
                     break;
                 case 5:
                     break;

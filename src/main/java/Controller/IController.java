@@ -38,15 +38,15 @@ public interface IController {
         
       public void ListarPlayList();//CArgar el DaoPlayList y imprimirlos por pantalla
     public void CrearPlayList();//crear un menu que crea una PlayLIst y hacer un create(lo añade a un usuario por defecto);
-    public void ActualizarPlayLIst(PlayList playL);//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void AñadirCancionPlayLIst(PlayList PlayL);//hace uso del metodo crearCanciones() y la añade
-    public void EliminarPlayList(Disco disco);// recibe un disco y hace el delete
+    public void ActualizarPlayLIst();//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
+    public void AñadirCancionPlayLIst(int id);//hace uso del metodo crearCanciones() y la añade
+    public void EliminarPlayList();// recibe un disco y hace el delete
     
           public void ListarUsers();//CArgar el DaoUsers y imprimirlos por pantalla(ordenarlos por nombre
     public void CrearUsuario();//crear un menu que crea una Usuario y hacer un create(lo añade sin nada de playlist);
-    public void ActualizarUsuarioInfo(Usuario usuario);//recibe un usuario crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void AñadirUsuarioCrearPlaylist(Usuario usuario);//hace uso del metodo crearPlaylist() y la añade
-    public void EliminarUsuario(Usuario usuario);// recibe un usuario y hace el delete
+    public void ActualizarUsuarioInfo();//recibe un usuario crea un menu para recibir por pantalla los nuevos parametros y hace un update
+   
+    public void EliminarUsuario();// recibe un usuario y hace el delete
     
     
     

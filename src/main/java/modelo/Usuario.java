@@ -28,6 +28,19 @@ public class Usuario {
         this.ListaSuscripcion=null;
     }
 
+    public Usuario() {
+        this.id=0;
+        this.nombre="desconocido";
+        this.correo="generico";
+        this.foto="no";
+         this.MisListas=null;
+        this.ListaSuscripcion=null;
+        
+    }
+
+   
+    
+
     public int getId() {
         return id;
     }
@@ -75,6 +88,11 @@ public class Usuario {
 
     public void setListaSuscripcion(ArrayList<PlayList> ListaSuscripcion) {
         this.ListaSuscripcion = ListaSuscripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", foto=" + foto + ", MisListas=" + MisListas + ", ListaSuscripcion=" + ListaSuscripcion + '}';
     }
     
     
