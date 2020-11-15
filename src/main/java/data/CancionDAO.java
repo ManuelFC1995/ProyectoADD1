@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,13 +21,13 @@ import modelo.PlayList;
 
 public class CancionDAO {
     final String INSERT ="INSERT INTO Artista(nombre,nacionalidad,foto)VALUES(?,?,?)";
-    final String UPDATE ="UPDATE Artista SET nombre=?,nacionalidad=?,foto=? WHERE id=?";
-    final String DELETE ="DELETE FROM Artista WHERE id= ?";
-    final String GETALL = "SELECT id,nombre,nacionalidad FROM Artista";
+    final String UPDATE ="UPDATE Cancion SET nombre=?,duracion=? WHERE id=?";
+    final String DELETE ="DELETE * FROM cancion  WHERE id= ?";
+    final String GETALL = "SELECT id,nombre,duracion,id artista from cancion order by id";
     final String GETONE = "SELECT id,nombre,nacionalidad FROM Artista WHERE id=?";
-    final String GETCANCIONESLIST="Select can.nombre from lista as list " +
-"left join lista_cancion as lc On lc.ID_lista=list.id" +
-"left join canciones as can On lc.ID_Cancion=can.id where list.id=";
+    final String GETCANCIONESLIST="Select can.id,can.nombre from lista as list " +
+" left join lista_cancion as lc On lc.id_lista=list.id" +
+" left join cancion as can On lc.id_cancion=can.id where list.id=";
     
     
    final private Connection conexion;
@@ -37,7 +38,9 @@ public class CancionDAO {
 
 
     public void insertar(Cancion c) throws DAOException {
-            PreparedStatement stat = null;
+           
+        
+        PreparedStatement stat = null;
             ResultSet rs =null;
             try{
                 stat =conexion.prepareStatement(INSERT);
@@ -109,11 +112,11 @@ public class CancionDAO {
  }
 
 
-    public void eliminar(Cancion c) throws DAOException {
+    public void eliminar(int id) throws DAOException {
                 PreparedStatement stat = null;
             try{
                 stat =conexion.prepareStatement(DELETE);
-                stat.setInt(1,c.getId());
+                stat.setInt(1,id);
                 if (stat.executeUpdate()==0){
                     throw new DAOException("Puede que no se haya borrado.");
                 }
@@ -145,12 +148,12 @@ public class CancionDAO {
          cancion.setId(rs.getInt("id"));
          return cancion;
      }
-    public List<Cancion> obtenerTodos(String Query) {
+    public List<Cancion> obtenerTodos() {
         PreparedStatement stat = null;
         ResultSet rs =null;
         List<Cancion> cancion=new ArrayList<>();
         try{
-            stat =conexion.prepareStatement(Query);
+            stat =conexion.prepareStatement("SELECT id,nombre,duracion,id artista from cancion order by id");
             rs=stat.executeQuery();
             while(rs.next()){
                 cancion.add(convertir(rs));
@@ -214,12 +217,12 @@ public class CancionDAO {
         return c;
         
     }
-      public List<Cancion> obtenerTodosList(PlayList list) {
+      public List<Cancion> obtenerTodosList(int id) {
         PreparedStatement stat = null;
         ResultSet rs =null;
         List<Cancion> cancion=new ArrayList<>();
         try{
-            stat =conexion.prepareStatement(GETCANCIONESLIST+list.getId());
+            stat =conexion.prepareStatement(GETCANCIONESLIST+id);
             rs=stat.executeQuery();
             while(rs.next()){
                 cancion.add(convertir(rs));
@@ -248,4 +251,133 @@ public class CancionDAO {
         }
         return cancion;
     }
+      
+              public List<Cancion> SelectCancioLista(int idLista) throws SQLException {
+        ArrayList<Cancion> Canciones = new ArrayList<>();
+   
+
+        if (this.conexion != null) {
+            Statement st = this.conexion.createStatement();
+            try (ResultSet rs = st.executeQuery(GETCANCIONESLIST+idLista)) {
+                while (rs != null && rs.next()) {
+                    Cancion PL = new  Cancion();
+                  int id=rs.getInt(1);
+                    String Nombre = rs.getString(2);
+                   
+                 PL.setNombre(Nombre);
+                 PL.setId(id);
+                 Canciones.add(PL);
+
+                  
+              
+               
+                   
+                }
+            } finally {
+                st.close();
+            }
+        }
+        return Canciones;
+    }
+                    public List<Cancion> SelectCancioNombre(String nombre) throws SQLException {
+        ArrayList<Cancion> Canciones = new ArrayList<>();
+   
+
+        if (this.conexion != null) {
+            Statement st = this.conexion.createStatement();
+            try (ResultSet rs = st.executeQuery("SELECT id form cancion where nombre ="+nombre)) {
+                while (rs != null && rs.next()) {
+                    Cancion PL = new  Cancion();
+                  
+                    String Nombre = rs.getString(1);
+                   
+                 PL.setNombre(Nombre);
+                 Canciones.add(PL);
+
+                  
+              
+               
+                   
+                }
+            } finally {
+                st.close();
+            }
+        }
+        return Canciones;
+    }
+              
+              
+     
+       public void InsertCancion() throws SQLException{
+               PreparedStatement ps = null;
+
+        try {
+            ps = this.conexion.prepareStatement("INSERT INTO cancion(Nombre,Duracion,id_disco)VALUES(?,?,?)");
+ System.out.println("Introduzca  Nombre de la Cancion");
+             String Nombre=(utilities.Utilidades.getString());
+              System.out.println("Introduzca Duracion");
+             String Desc=(utilities.Utilidades.getString());
+                 System.out.println("Introduzca Id del disco");
+             int IdC=(utilities.Utilidades.getInt());
+            ps.setString(1,Nombre);
+            
+            ps.setString(2,Desc );
+            ps.setInt(3,IdC);
+              if(ps.executeUpdate()==0) {
+                  throw new SQLException("NO se ha insertado correctamente");
+              }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+        }
+}
+        public void InsertCancionLista() throws SQLException{
+        PreparedStatement ps = null;
+
+        try {
+            ps = this.conexion.prepareStatement("INSERT INTO lista_cancion(id_lista,id_cancion)VALUES(?,?)");
+ System.out.println("Introduzca  Id de la playList");
+             int idP=utilities.Utilidades.getInt();
+              System.out.println("Introduzca Id de la cancion para añadirla");
+             int idC=utilities.Utilidades.getInt();
+         
+            ps.setInt(1,idP);
+            
+            ps.setInt(2,idC );
+          
+              if(ps.executeUpdate()==0) {
+                  throw new SQLException("NO se ha insertado correctamente");
+              }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+        }
+
+        
+}
+        
+        
+         public void DeleteCancionPlist(int idcancion, int idlista) throws SQLException {
+        Statement st = null;
+
+        try {
+            if (this.conexion != null) {
+
+                st = this.conexion.createStatement();
+
+               
+                    st.executeUpdate("DELETE FROM lista_cancion WHERE id_lista=" + idlista+",id_cancion="+idcancion);
+            }
+
+        } finally {
+            if (this.conexion != null) {
+                st.close();
+            }
+        }
+    }
+       
 }

@@ -20,6 +20,10 @@ public class Cancion {
         this.duracion = duracion;
     }
 
+    public Cancion() {
+    }
+    
+
     public int getId() {
         return id;
     }
@@ -74,6 +78,11 @@ public class Cancion {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", ID_disco=" + ID_disco + '}';
     }
    
 }

@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import data.CancionDAO;
+import data.DAOException;
 import data.PlayLIstDAO;
 import data.UsuarioDAO;
 import java.sql.SQLException;
@@ -38,10 +40,7 @@ public class Controller implements IController {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void ActualizarArtistaAñadeDisco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     @Override
     public void EliminaArtista() {
@@ -63,10 +62,7 @@ public class Controller implements IController {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void AñadirCancionAdisco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public void EliminarDisco() {
@@ -75,22 +71,57 @@ public class Controller implements IController {
 
     @Override
     public void ListarCanciones() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       CancionDAO cdao = new CancionDAO();
+      ArrayList<Cancion> canciones= (ArrayList<Cancion>) cdao.obtenerTodos();
+      for (Cancion c :canciones){
+          System.out.println(c);
+      }
+    }
+    
+    public void EliminarCancionLIsta() throws SQLException{
+         CancionDAO cdao = new CancionDAO();
+       int idLista=utilities.Utilidades.getInt("introduzca el id de la lista");
+       int idcancion=utilities.Utilidades.getInt("introduzca el id de la cancion");
+       cdao.DeleteCancionPlist(idcancion, idLista);
     }
 
     @Override
     public void CrearCanciones() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          CancionDAO cdao = new CancionDAO();
+        try {
+            cdao.InsertCancion();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void ActualizarCancion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Cancion c = new Cancion();
+        c.setId(utilities.Utilidades.getInt("Que Cancion desea modificar? introduzca su id"));
+        c.setNombre(utilities.Utilidades.getString("nuevo nombre"));
+        c.setDuracion(utilities.Utilidades.getString("nueva duracion"));
+          CancionDAO cdao = new CancionDAO();
+        try {
+            cdao.modificar(c);
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void EliminarCancion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ListarCanciones();
+       int id=utilities.Utilidades.getInt("Introduzca el id de la cancion");
+        CancionDAO cdao = new CancionDAO();
+        try {
+            cdao.eliminar(id);
+        } catch (DAOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     @Override
@@ -110,21 +141,9 @@ public class Controller implements IController {
     @Override
     public void CrearPlayList() {
        PlayLIstDAO pdao=new PlayLIstDAO();
-       UsuarioDAO udao = new UsuarioDAO();
-    PlayList p = new PlayList();
-       
-         System.out.println("Introduzca  Nombre de la PlayLIst");
-              p.setNombre(utilities.Utilidades.getString());
-                  System.out.println("Introduzca Descripcion");
-             p.setDescripcion(utilities.Utilidades.getString());
-             
-      Usuario u = new Usuario();
-     
-      p.setCreador(u);
-      
+    
         try {
-            pdao.InsertPlaylist(p);
-            udao.InsertUser(u);
+            pdao.InsertPlaylist();
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,8 +163,14 @@ public class Controller implements IController {
     }
 
     @Override
-    public void AñadirCancionPlayLIst(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void AñadirCancionPlayLIst() {
+       CancionDAO cdao = new CancionDAO();
+    
+        try {
+            cdao.InsertCancionLista();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -171,6 +196,16 @@ public class Controller implements IController {
                 System.out.println(u);
             }       } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            
+            
+        }
+    }
+    
+    public void ListarPlaylistUser(int id) throws SQLException{
+        PlayLIstDAO pdao = new PlayLIstDAO();
+        ArrayList<PlayList> listas =(ArrayList<PlayList>) pdao.SelectPlayListUsuario(id);
+        for(PlayList p:listas){
+            System.out.println(p);
         }
     }
 
@@ -197,7 +232,14 @@ public class Controller implements IController {
     }
 
    
-   
+   public void ListarCancionesPL(int id) throws SQLException{
+       CancionDAO cdao = new CancionDAO();
+      
+      ArrayList<Cancion> cn= (ArrayList<Cancion>) cdao.SelectCancioLista(id);
+       for (Cancion c :cn){
+           System.out.println(cn);
+       }
+   }
 
    
 
@@ -230,6 +272,18 @@ public class Controller implements IController {
     
     }
 
-  
+  public void ListarPlayListUsuario(int id) throws SQLException{
+     PlayLIstDAO pdao = new PlayLIstDAO();
+      ArrayList <PlayList> listas =(ArrayList <PlayList>) pdao.SelectPlayListUsuario(id);
+     for (PlayList p : listas){
+         System.out.println(p);
+     }
+      
+  }
+
+    @Override
+    public void ListarCancionesDisco() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

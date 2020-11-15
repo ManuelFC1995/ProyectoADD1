@@ -16,12 +16,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.PlayList;
+import utilities.Utilidades;
 
 /**
  *
  * @author manue
  */
-public class PlayLIstDAO  {
+public class PlayLIstDAO extends PlayList  {
 
     Connection con;
 
@@ -60,19 +61,21 @@ public class PlayLIstDAO  {
         return Listas;
     }
     
-      public void InsertPlaylist(PlayList Plist) throws SQLException {
+      public void InsertPlaylist() throws SQLException {
         PreparedStatement ps = null;
 
         try {
             ps = con.prepareStatement("INSERT INTO lista(Nombre,Descripcion,ID_usuario)VALUES(?,?,?)");
-
-            ps.setString(1, Plist.getNombre());
-            ps.setString(2, Plist.getDescripcion());
-            if(Plist.getCreador()!=null){
-            ps.setInt(3, Plist.getCreador().getId());
-            }else {
-                ps.setInt(3,0);
-            }
+ System.out.println("Introduzca  Nombre de la PlayLIst");
+             String Nombre=(utilities.Utilidades.getString());
+              System.out.println("Introduzca Descripcion de la PlayLIst");
+             String Desc=(utilities.Utilidades.getString());
+                 System.out.println("Introduzca Id del creador de la PlayLIst");
+             int IdC=(utilities.Utilidades.getInt());
+            ps.setString(1,Nombre);
+            
+            ps.setString(2,Desc );
+            ps.setInt(3,IdC);
               if(ps.executeUpdate()==0) {
                   throw new SQLException("NO se ha insertado correctamente");
               }
@@ -93,6 +96,7 @@ public class PlayLIstDAO  {
                 st = con.createStatement();
 
                 st.executeUpdate("DELETE FROM lista WHERE ID=" + id);
+                    st.executeUpdate("DELETE FROM lista_cancion WHERE id_lista=" + id);
             }
 
         } finally {
@@ -105,20 +109,21 @@ public class PlayLIstDAO  {
        
          public void updatePlayListinfo(int id) throws SQLException {
         Statement st = null;
-PlayList plist = new PlayList();
+
         try {
             if (con != null) {
 
                 st = con.createStatement();
                 System.out.println("Introduzca nuevo Nombre de la PlayList");
-                plist.setNombre(utilities.Utilidades.getString());
+                String Nombre=Utilidades.getString();
                   System.out.println("Introduzca nueva Descripcion de la PlayLIst");
-                plist.setDescripcion(utilities.Utilidades.getString());
+                String Descripcion= Utilidades.getString();
+                
                   
 
-                st.executeUpdate("UPDATE  lista "
-     + "SET " + "Nombre="+plist.getNombre()+","
-               + "Descripcion="+plist.getDescripcion()+"WHERE ID="+id);
+                st.executeUpdate("UPDATE lista "
+     + "SET " + "nombre="+Nombre+","
+               + "descripcion="+Descripcion+" WHERE id="+id);
             }
 
         } finally {
@@ -126,5 +131,36 @@ PlayList plist = new PlayList();
                 st.close();
             }
         }
+    }
+         
+         
+            public List<PlayList> SelectPlayListUsuario(int idUsuario) throws SQLException {
+        ArrayList<PlayList> Listas = new ArrayList<>();
+   
+
+        if (con != null) {
+            Statement st = con.createStatement();
+            try (ResultSet rs = st.executeQuery("SELECT li.id,li.nombre,li.descripcion from usuario as us"
+                    + " LEFT JOIN lista as li on li.id_usuario=us.id WHERE us.id="+idUsuario+" order by id")) {
+                while (rs != null && rs.next()) {
+                    PlayList PL = new PlayList();
+                    int id1 = rs.getInt(1);
+                    String Nombre = rs.getString(2);
+                    String Descripcion = rs.getString(3);
+                 
+
+                    PL.setId(id1);
+                    PL.setDescripcion(Descripcion);
+                    PL.setNombre(Nombre);
+              
+               
+                   
+                      Listas.add(PL);
+                }
+            } finally {
+                st.close();
+            }
+        }
+        return Listas;
     }
 }

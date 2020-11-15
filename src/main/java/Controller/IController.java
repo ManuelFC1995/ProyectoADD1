@@ -19,15 +19,16 @@ public interface IController {
     public void ListarArtistas();//CArgar el DaoArtistas y imprimirlos por pantalla
     public void CrearArtista();//crear un menu que crea un artista y hacer un create
     public void ActualizarAristaInfo();//recibe un artista crea un menu para recibir por pantalla los nuevos datos y hace un update
-    public void ActualizarArtistaAñadeDisco();//usar el metodo CrearDiscos() y añadirlo a los discos del Artista
+    
     public void EliminaArtista();// recibe un artista y hace el delete
     
     
       public void ListarDiscos();//CArgar el DaoDiscos y imprimirlos por pantalla(agrupados por artista)
-    public void CrearDiscos();//crear un menu que crea un Disco y hacer un create(debe dar la opcion de asociarlo a un artista ya existente o uno nuevo)
+    public void ListarCancionesDisco();//Listara las canciones de un disco solo
+      public void CrearDiscos();//crear un menu que crea un Disco y hacer un create(debe  de asociarlo a un artista )
     public void ActualizarDiscoInfo();//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void AñadirCancionAdisco();//hace uso del metodo crearCanciones() y la añade
-    public void EliminarDisco();// recibe un disco y hace el delete
+   
+    public void EliminarDisco();// recibe un disco y hace el delete 
     
           public void ListarCanciones();//CArgar el DaoCanciones y imprimirlos por pantalla(agrupados por Disco)
     public void CrearCanciones();//crear un menu que crea un Disco y hacer un create(debe dar la opcion de asociarlo a un disco ya existente o uno nuevo)
@@ -39,7 +40,7 @@ public interface IController {
       public void ListarPlayList();//CArgar el DaoPlayList y imprimirlos por pantalla
     public void CrearPlayList();//crear un menu que crea una PlayLIst y hacer un create(lo añade a un usuario por defecto);
     public void ActualizarPlayLIst();//recibe un disco crea un menu para recibir por pantalla los nuevos parametros y hace un update
-    public void AñadirCancionPlayLIst(int id);//hace uso del metodo crearCanciones() y la añade
+    public void AñadirCancionPlayLIst();//hace uso del metodo crearCanciones() y la añade
     public void EliminarPlayList();// recibe un disco y hace el delete
     
           public void ListarUsers();//CArgar el DaoUsers y imprimirlos por pantalla(ordenarlos por nombre

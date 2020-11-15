@@ -19,7 +19,7 @@ import modelo.Usuario;
  *
  * @author manue
  */
-public class UsuarioDAO {
+public class UsuarioDAO extends Usuario {
 
    public final String SELECTall = "SELECT * FROM usuario";
     Connection con;
@@ -49,6 +49,8 @@ public class UsuarioDAO {
                     User.setCorreo(Correo);
                     User.setNombre(Nombre);
                     User.setFoto(Foto);
+                    ArrayList <PlayList> L = new ArrayList<>();
+                    User.setMisListas(L);
                   
                     //DAO lista de ese usuario
                     usuarios.add(User);
